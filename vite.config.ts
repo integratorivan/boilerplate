@@ -1,4 +1,3 @@
-// @ts-ignore
 import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
