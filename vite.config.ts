@@ -1,16 +1,27 @@
-import { TanStackRouterVite } from '@tanstack/router-plugin/vite';
+import tanstackRouter from '@tanstack/router-plugin/vite';
 import react from '@vitejs/plugin-react';
 import { resolve } from 'path';
 import { defineConfig } from 'vite';
+import { VitePWA } from 'vite-plugin-pwa';
 import svgr from 'vite-plugin-svgr';
 
 export default defineConfig({
     plugins: [
-        TanStackRouterVite({ target: 'react', autoCodeSplitting: true }),
+        tanstackRouter({ target: 'react', autoCodeSplitting: true }),
         react(),
         svgr({
             include: '**/*.svg',
             svgrOptions: { exportType: 'named', ref: true, svgo: false, titleProp: true },
+        }),
+        VitePWA({
+            registerType: 'autoUpdate',
+            workbox: {
+                clientsClaim: true,
+                skipWaiting: true,
+            },
+            devOptions: {
+                enabled: true,
+            },
         }),
     ],
     resolve: {
@@ -30,7 +41,7 @@ export default defineConfig({
     },
     server: {
         host: true,
-        port: 3000,
+        port: 3002,
         proxy: {
             '/api': {
                 ws: true,
